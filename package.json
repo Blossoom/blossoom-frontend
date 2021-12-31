@@ -1,0 +1,34 @@
+{
+  "name": "blossoom-frontend",
+  "version": "0.0.1",
+  "description": "This is a Beta version of blossom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blossoom/blossoom-frontend.git"
+  },
+  "author": "Iheb khaldi/Malek salem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blossoom/blossoom-frontend/issues"
+  },
+  "homepage": "https://github.com/Blossoom/blossoom-frontend#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.1.0",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "react-hot-loader": "^4.13.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  }
+}
