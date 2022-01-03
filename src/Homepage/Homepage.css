@@ -1,0 +1,17 @@
+.Homepage-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.Homepage-content {
+    display: flex;
+    
+    flex-direction: column;
+    background-color: bisque;
+    height: 100vh;
+    width: 70vw;
+}
+
+
+

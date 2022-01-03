@@ -1,0 +1,25 @@
+.Header-container {
+    display: flex;
+    justify-content: space-between;
+    height: 10vh;
+    background-color: #D4ECDD;
+    align-items: center
+}
+
+.buttons {
+    width: 5rem;
+    display: flex;
+    justify-content: space-around;
+    margin-right: 2rem;
+}
+
+.buttons button {
+
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+#logo {
+
+}

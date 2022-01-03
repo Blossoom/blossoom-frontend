@@ -1,0 +1,43 @@
+
+.ProfileContainer {
+    background-color: bisque;
+    min-height: 100vh;
+
+}
+
+
+.ProfilePicture {
+    position:relative;
+    border-radius: 50%;
+    height: 7rem;
+    width: 7rem;
+    left: 45%;
+    right: 55%;
+    top: 20%
+}
+
+.ProfileBody{
+    display:flex;
+
+
+}
+
+.cover {
+    background-color: black;
+    width: 50rem;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.profileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.Posts {
+    background-color: pink;
+}
