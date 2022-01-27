@@ -1,0 +1,13 @@
+.GalleryBody {
+    display: flex;
+    justify-content: center;
+}
+
+.ArtworkBody img {
+    height: 80vh;
+}
+
+.ArtworkComponent {
+    background-color: #b9bcc8;
+    
+}
