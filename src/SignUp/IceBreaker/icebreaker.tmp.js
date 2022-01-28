@@ -1,40 +1,29 @@
 import React from 'react';
-import {Container, Card,Row, Button} from 'react-bootstrap';
+import {Container, Card,Row, Button, Form} from 'react-bootstrap';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Link } from 'react-router-dom';
 
 const Icebreaker = () => {
     const [Inputstate, setInput] = useState({input: {id: localStorage.getItem('profile_id'), name: '' ,bio: '',profile_pic: '' ,WebsiteUrl: '', location: '', birth_date: '', background: '', working_on: '', collab_status: ''}});
-    const [error, setError] = useState('');
+    const [validated, setValidated] = useState(false);
     const handleChange = (e) => {
         setInput({...Inputstate, input: {...Inputstate.input, [e.target.name]: e.target.value}});
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          console.log(Inputstate.input);    
+          setValidated(true);
+        };
+      
 
-        fetch('https://blossoom-api.herokuapp.com/api/v1/users/' + localStorage.getItem('profile_id') + "/", {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            },
-            body: JSON.stringify(Inputstate.input)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.error){
-                setError(data.error);
-            }
-            else{
-                // window.location.href = '/';
-                console.log(res.data)
-            }
-        })
-        .catch(err => console.log(err));
-    }
-
+  
+  
 
   return (
       <Container fluid >
@@ -45,7 +34,7 @@ const Icebreaker = () => {
               <Row className='bg-light'>
                     <div className="mx-auto col-md-9 login-form-1 my-3">
                           <h3>Basic info</h3>   
-                          <form className='d-flex flex-column justify-content-center '>
+                          <Form className='d-flex flex-column justify-content-center ' noValidate validated={validated} onSubmit={handleSubmit}>
                           <div className="form-group mx-auto">    
                               <label >Profile Picture
                                   <input name='profile_pic' type="file" className="form-control my-2" placeholder="Define yourself homan *" />
@@ -53,7 +42,7 @@ const Icebreaker = () => {
                               </div>
 
                           <div className="form-group mx-auto">    
-                              <label > <span className='text-info'> Name</span> 
+                              <label >Name
                                   <input onChange={handleChange}  name='name' type="text" className="form-control my-2" placeholder="you're
                                    homan *" />
                               </label>
@@ -101,8 +90,8 @@ const Icebreaker = () => {
                                   
                               </div>
                               <small className='text-center'>You can update or edit settings later</small>
-                              <Button onClick={handleSubmit}>Next</Button>
-                          </form>
+                              <Button type='submit' >Submit</Button>
+                          </Form>
                       </div>
                 </Row>
                 

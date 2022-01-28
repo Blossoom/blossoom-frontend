@@ -19,8 +19,8 @@ import PickTags from "./SignUp/IceBreaker/PickTags";
 import Header from './Header/Header'
 ReactDOM.render(
         <Router>
-            <Header/>
             <Provider store={reduxStore}>
+            <Header/>
             <Routes>
             <Route path='/' element={<Homepage/>} />
             <Route path='/Profile' element={<Profile/>} />
@@ -29,8 +29,8 @@ ReactDOM.render(
             <Route path='/Create/ShopItem' element={<CreateShopItem/>} />
             <Route path='/Create/Event' element={<CreateEvent/>} />
             <Route path='/signup' element={<SignUp/>} />
-            <Route path='/signup/icebreaker' element={<Icebreaker/>} />
-            <Route path='/signup/picktags' element={<PickTags/>} />
+            <Route path='/icebreaker' element={<Icebreaker/>} />
+            <Route path='/picktags' element={<PickTags/>} />
             <Route path='/Profile/Settings' element={<ProfileSettings />}/>
             <Route path='/login' element={<Login/>} />
             <Route path='/Blog/post' element={<SinglePagePost />}/>

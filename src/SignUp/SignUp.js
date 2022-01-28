@@ -44,7 +44,7 @@ function SignUp(){
             return
         }
         else{
-            axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/register', inputState.input)
+            axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/register/', inputState.input)
             .then(res => {
                 console.log(res)
                 if (res.statusText === "Created"){

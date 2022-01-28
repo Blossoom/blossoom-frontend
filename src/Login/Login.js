@@ -8,6 +8,7 @@ import validator from 'validator'
 import axios from 'axios';
 import reduxStore from '../reduxStore/reduxStore';
 function Login(){
+    const abortController = new AbortController();
 
     // a local storage to store the user's token
     const [token, setToken] = useState(localStorage.getItem('token'))
@@ -31,23 +32,29 @@ function Login(){
             axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/login/', inputState.input)
             .then(res => {
                 console.log(res)
-                if (res.statusCode === 200){
-                    setToken(res.data.token)
-                    localStorage.setItem('token', res.data.token)
+                if (res.status === 200){
+                    setToken(res.data.access)
+                    localStorage.setItem('access_token', JSON.stringify(res.data.access))
+                    localStorage.setItem('refresh_token', JSON.stringify(res.data.refresh))
+                    localStorage.setItem('profile_id', JSON.stringify(res.data.profile_id))
                     reduxStore.dispatch({type: 'LOG', payload: {isLogged: true}})
-                    if (res.data.user.is_superuser){
-                        navigate('/admin')
+                    if (res.data.is_new === true){
+                        console.log('new user')
+                        console.log(res.data.is_new)
+                        navigate('/icebreaker')
                     }
-                    navigate('/')
+                    else{
+                        navigate('/') 
+                    }
                 }
                 else{
                     setError(res.data.error)
                 }
             })
             .catch(err => {
-                console.log(err + 'Here')
+                console.log(err)
             })
-            return
+            return function cleanup() {abortController.abort();}
     }
 
     

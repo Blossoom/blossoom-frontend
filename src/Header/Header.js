@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Header.css';
 import { Link } from "react-router-dom";
 import reduxStore from './../reduxStore/reduxStore'
 import david from './../assets/David.jpeg'
 import {Container, Navbar, Nav, NavDropdown, Button,Form, FormControl, Image} from 'react-bootstrap'
 
+import { useSelector } from 'react-redux'
 
 
 function Header(){
 
-// isLogged is a state that might get the cookies expiering date status
-// to keep the header status logged ig
-  const isLogged = reduxStore.getState().Auth.isLogged;
+
+
+
+if(localStorage.getItem('access_token') !== null){
+  reduxStore.dispatch({type: 'LOG', payload: {isLogged: true}})
+}
+
+if(localStorage.getItem('access_token') === null){
+  reduxStore.dispatch({type: 'LOG', payload: {isLogged: false}})
+}
+
+
+  const isLogged = useSelector((state) => state.Auth.isLogged)
+
+ 
+
+  useEffect(() => {
+    if(isLogged === true){
+      console.log('logged in')
+    }
+    else{
+      console.log('not logged in')
+    }
+  }, [isLogged])
+
+  
+    function logoutHandler(){
+      reduxStore.dispatch({type: 'LOG', payload: {isLogged: false}})
+      localStorage.clear()
+      // window.location.reload();
+    }
+
+
+
 
     return(
 
@@ -42,11 +74,9 @@ function Header(){
 
       <Nav
         className="ms-auto my-2 my-lg-0"
-        style={{ maxHeight: '100px'}}
+        style={{ maxHeight: '80px'}}
         navbarScroll
       >
-
-
 
 
                           <Nav.Link>{isLogged && (<Button variant="light">
@@ -73,10 +103,15 @@ function Header(){
                           </Button>):( <Link to='/login'><Button variant="light">Login</Button></Link>)}
                           </Nav.Link>
                           <Nav.Link >{isLogged ? (
-                          <Link to='/Profile'>
-                            
-                            <Button variant="light"><img src={david} className='rounded-circle' width={'40px'}/></Button>
-                            </Link>):(<Link to='/signup'><Button variant="light">Sign Up</Button></Link>)}</Nav.Link>
+
+                            <Button variant="none">
+                              <img src={david} width={"45px"}/>
+                              <NavDropdown title="David" id="navbarScrollingDropdown">
+                                <NavDropdown.Item ><Link to='/profile'>Profile</Link></NavDropdown.Item>
+                                <NavDropdown.Item ><Link to='/profile/settings' >Settings</Link></NavDropdown.Item>
+                                <NavDropdown.Item ><Link onClick={logoutHandler} to='/'>Logout</Link></NavDropdown.Item>
+                              </NavDropdown>
+                            </Button>):(<Link to='/signup'><Button variant="light">Sign Up</Button></Link>)}</Nav.Link>
       
       </Nav>
     </Navbar.Collapse>
