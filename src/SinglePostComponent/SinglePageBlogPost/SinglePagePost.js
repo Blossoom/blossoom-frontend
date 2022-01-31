@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container} from 'react-bootstrap';
-import reduxStore from './../../reduxStore/reduxStore';
+import reduxStore from '../../reduxStore/reduxStore';
 
 const edjsHTML = require("editorjs-html");
 const edjsParser = edjsHTML();

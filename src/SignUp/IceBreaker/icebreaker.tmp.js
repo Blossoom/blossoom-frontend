@@ -12,13 +12,34 @@ const Icebreaker = () => {
     }
 
     const handleSubmit = (e) => {
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-          console.log(Inputstate.input);    
-          setValidated(true);
+        console.log(Inputstate.input)
+        fetch('https://blossoom-api.herokuapp.com/api/v1/users/' + localStorage.getItem('profile_id') + "/", {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + access_token
+            },
+            body: JSON.stringify(Inputstate.input)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.error){
+                setError(data.error);
+            }
+            else{
+                // window.location.href = '/';
+                console.log(res.data)
+            }
+        })
+        .catch(err => console.log(err));
+
+        // const form = e.currentTarget;
+        // if (form.checkValidity() === false) {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //   }
+        //   console.log(Inputstate.input);    
+        //   setValidated(true);
         };
       
 

@@ -13,17 +13,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reduxStore from './reduxStore/reduxStore';
 import { Provider } from 'react-redux';
 import ProfileSettings from "./Profile/ProfileSettings/ProfileSettings";
-import SinglePagePost from './SinglePostComponent/SinglePagePost/SinglePagePost'
+import SinglePagePost from './SinglePostComponent/SinglePageBlogPost/SinglePagePost'
 import Icebreaker from "./SignUp/IceBreaker/Icebreaker";
 import PickTags from "./SignUp/IceBreaker/PickTags";
 import Header from './Header/Header'
+import axios from "axios";
+
 ReactDOM.render(
         <Router>
             <Provider store={reduxStore}>
             <Header/>
             <Routes>
             <Route path='/' element={<Homepage/>} />
-            <Route path='/Profile' element={<Profile/>} />
+            <Route exact  path='/Profile/:id' element={<Profile/>} />
             <Route path='/Create/Blog' element={<CreateBlog/>} />
             <Route path='/Create/Artwork' element={<CreateArtwork/>} />
             <Route path='/Create/ShopItem' element={<CreateShopItem/>} />
@@ -33,7 +35,7 @@ ReactDOM.render(
             <Route path='/picktags' element={<PickTags/>} />
             <Route path='/Profile/Settings' element={<ProfileSettings />}/>
             <Route path='/login' element={<Login/>} />
-            <Route path='/Blog/post' element={<SinglePagePost />}/>
+            <Route path='/Blog/post/:postid' element={<SinglePagePost />}/>
             </Routes>
             </Provider>
         </Router>,document.querySelector("#root"));

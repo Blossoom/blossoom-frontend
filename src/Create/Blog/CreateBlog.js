@@ -8,6 +8,8 @@ import Embed from '@editorjs/embed'
 import ImageTool from '@editorjs/image';
 import Quote from '@editorjs/quote'
 import './CreateBlog.css'
+import axios from 'axios';
+import reduxStore from '../../reduxStore/reduxStore';
 import { useDispatch } from 'react-redux';
 
 
@@ -68,13 +70,11 @@ function CreateBlog() {
       }
     
 const people = [
-  "Siri",
-  "Alexa",
-  "Google",
-  "Facebook",
-  "Twitter",
-  "Linkedin",
-  "Sinkedin"
+  'Digital_Painting',
+  'vector_art',
+  'collage_art',
+  'sketch',
+  'character_design',
 ];
 function TagSelector() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -91,6 +91,8 @@ function TagSelector() {
     );
     setSearchResults(results);
   }, [searchTerm]);
+
+
 
 
 
@@ -126,8 +128,31 @@ function TagSelector() {
   const handleTitle = event => {
         dispatch( {type: "INSERT_TITLE", payload: {Title: event.target.value} } )
       }
+      const access_token = localStorage.getItem('access_token')
 
+      const submitBlog = () => {
 
+        axios.post('https://blossoom-api.herokuapp.com/api/v1/articles/', {
+          title: reduxStore.getState().CreateBlog.Title,
+          content: JSON.stringify(reduxStore.getState().CreateBlog.Blocks),
+          tags: reduxStore.getState().CreateBlog.Tags,
+          preview_content: reduxStore.getState().CreateBlog.Description,
+        }, {
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        }).then(function (response) {
+          console.log(response);
+        }
+        )
+        .catch(function (error) {
+          console.log(error);
+        }
+        );
+
+        window.location.replace('/profile/' + localStorage.getItem('profile_id'))
+    
+      }
 
       const DescriptionHandler = event => {
         dispatch({type: 'INSERT_DESCRIPTION', payload: {Description: event.target.value}})
@@ -163,14 +188,14 @@ function TagSelector() {
               <Container>
                 <TagSelector />
                 <Row>
-                      <form action="/action_page.php">
+                      <form>
                            <label className='col-12' htmlFor="img">Select image:</label>
                            <input className='col-12' type="file" id="img" name="img" accept="image/*" />
                           <label className='col-12' htmlFor='Description'>Insert a Description for your post </label>
                           <textarea className='col-12' minLength="20" id="Description" cols="30" rows="7" onChange={DescriptionHandler} placeholder="Your Description"  required></textarea>
                       </form>
                                 
-                      <Link to='/Blog/post' ><Button className='mx-auto col-4 my-3'>{state}</Button></Link>
+                      <Button onClick={submitBlog} className='mx-auto col-4 my-3'>{state}</Button>
               </Row>
               </Container>
             )}

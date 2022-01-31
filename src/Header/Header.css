@@ -2,3 +2,7 @@
     background-color: #4386ac;
     color: white;
 }
+
+.dropdown-width {
+    min-width: 0px !important;
+}

@@ -24,8 +24,14 @@ function SignUp(){
     }
      
     function setUserName(event){
-        setInput({...inputState, input:{username: event.target.value, password: inputState.input.password , email: inputState.input.email, password_2: inputState.input.password_2}})
-    }
+        // check if username is valid
+        if (validator.isAlphanumeric(event.target.value)){
+            setInput({...inputState, input:{email: inputState.input.email, password: inputState.input.password, password_2: inputState.input.password_2, username: event.target.value}})
+        }
+        else{
+            setError('Username must be alphanumeric')
+        }
+        }
 
     function handleSubmit() {
         if (!(validator.isEmail(inputState.input.email))){

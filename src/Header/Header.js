@@ -2,26 +2,30 @@ import React, { useEffect } from 'react';
 import './Header.css';
 import { Link } from "react-router-dom";
 import reduxStore from './../reduxStore/reduxStore'
-import david from './../assets/David.jpeg'
-import {Container, Navbar, Nav, NavDropdown, Button,Form, FormControl, Image} from 'react-bootstrap'
-
+import {Container, Navbar, Nav, NavDropdown, Button,Form, FormControl, Image, Dropdown} from 'react-bootstrap'
+import axios from 'axios';
 import { useSelector } from 'react-redux'
-
+import { useState } from 'react';
 
 function Header(){
+  const [profile_pic, setProfile_pic] = useState('')
 
-
-
+  const profile_id = localStorage.getItem('profile_id')
 
 if(localStorage.getItem('access_token') !== null){
   reduxStore.dispatch({type: 'LOG', payload: {isLogged: true}})
+  axios.get(`https://blossoom-api.herokuapp.com/api/v1/users/${profile_id}/`).then(res => {
+    console.log(res.data)
+    localStorage.setItem('profile_pic', res.data.profile_pic)
+    setProfile_pic(localStorage.getItem('profile_pic'));
+  })
 }
 
 if(localStorage.getItem('access_token') === null){
   reduxStore.dispatch({type: 'LOG', payload: {isLogged: false}})
 }
 
-
+  // const profile_pic = localStorage.getItem('profile_pic')
   const isLogged = useSelector((state) => state.Auth.isLogged)
 
  
@@ -104,14 +108,17 @@ if(localStorage.getItem('access_token') === null){
                           </Nav.Link>
                           <Nav.Link >{isLogged ? (
 
-                            <Button variant="none">
-                              <img src={david} width={"45px"}/>
-                              <NavDropdown title="David" id="navbarScrollingDropdown">
-                                <NavDropdown.Item ><Link to='/profile'>Profile</Link></NavDropdown.Item>
-                                <NavDropdown.Item ><Link to='/profile/settings' >Settings</Link></NavDropdown.Item>
-                                <NavDropdown.Item ><Link onClick={logoutHandler} to='/'>Logout</Link></NavDropdown.Item>
-                              </NavDropdown>
-                            </Button>):(<Link to='/signup'><Button variant="light">Sign Up</Button></Link>)}</Nav.Link>
+                            <Dropdown variant="none">
+                                <Dropdown.Toggle variant="none" id="dropdown-basic">
+                                <Image rounded src={profile_pic} height={"35px"} width={"35px"}/>
+
+                                </Dropdown.Toggle>
+                              <Dropdown.Menu className='dropdown-width' id="navbarScrollingDropdown">
+                                <Dropdown.Item ><Link to={`/Profile/${profile_id}`}>Profile</Link></Dropdown.Item>
+                                <Dropdown.Item ><Link to='/profile/settings' >Settings</Link></Dropdown.Item>
+                                <Dropdown.Item ><Link onClick={logoutHandler} to='/'>Logout</Link></Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>):(<Link to='/signup'><Button variant="light">Sign Up</Button></Link>)}</Nav.Link>
       
       </Nav>
     </Navbar.Collapse>

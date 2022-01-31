@@ -3,37 +3,61 @@ import {Container, Card,Row, Button} from 'react-bootstrap';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 const Icebreaker = () => {
-    const [Inputstate, setInput] = useState({input: {id: localStorage.getItem('profile_id'), name: '' ,bio: '',profile_pic: '' ,WebsiteUrl: '', location: '', birth_date: '', background: '', working_on: '', collab_status: ''}});
+    const [Inputstate, setInput] = useState({input: {name: '' ,bio: '',profile_pic: null ,WebsiteUrl: '', location: '', birth_date: '', background: '', working_on: '', collab_status: ''}});
     const [error, setError] = useState('');
+    const access_token = localStorage.getItem('access_token')
+    
     const handleChange = (e) => {
-        setInput({...Inputstate, input: {...Inputstate.input, [e.target.name]: e.target.value}});
+        if (e.target.name === 'profile_pic'){
+            setInput({...Inputstate, input:{...Inputstate.input, profile_pic: e.target.files[0]}})
+        }
+        else {
+            setInput({...Inputstate, input: {...Inputstate.input, [e.target.name]: e.target.value}});
+        }
+        
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
 
-        fetch('https://blossoom-api.herokuapp.com/api/v1/users/' + localStorage.getItem('profile_id') + "/", {
-            method: 'PATCH',
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', Inputstate.input.name);
+        formData.append('bio', Inputstate.input.bio);
+        formData.append('profile_pic', Inputstate.input.profile_pic);
+        formData.append('WebsiteUrl', Inputstate.input.WebsiteUrl);
+        formData.append('location', Inputstate.input.location);
+        formData.append('birth_date', Inputstate.input.birth_date);
+        formData.append('background', Inputstate.input.background);
+        formData.append('working_on', Inputstate.input.working_on);
+        formData.append('collab_status', Inputstate.input.collab_status);
+        axios.patch('https://blossoom-api.herokuapp.com/api/v1/users/' + localStorage.getItem('profile_id') + '/', formData, {
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            },
-            body: JSON.stringify(Inputstate.input)
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${access_token}`
+            }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.error){
-                setError(data.error);
+        .then(res => {
+            if (res.status === 200){
+                setError('')
+                setInput({input: {name: '', bio: '',profile_pic: null ,WebsiteUrl: '', location: '', birth_date: '', background: '', working_on: '', collab_status: ''}})
+                // redirect to the home page
+                window.location.href = '/picktags'
             }
             else{
-                // window.location.href = '/';
-                console.log(res.data)
+                setError(res.data.error)
             }
         })
-        .catch(err => console.log(err));
-    }
+        .catch(err => {
+            console.log(err)
+        })
+        }
+
+    
+
+    
 
 
   return (
@@ -48,7 +72,7 @@ const Icebreaker = () => {
                           <form className='d-flex flex-column justify-content-center '>
                           <div className="form-group mx-auto">    
                               <label >Profile Picture
-                                  <input name='profile_pic' type="file" className="form-control my-2" placeholder="Define yourself homan *" />
+                                  <input name='profile_pic' onChange={handleChange} type="file" className="form-control my-2"  />
                               </label>
                               </div>
 
@@ -76,7 +100,7 @@ const Icebreaker = () => {
                               </div>
                                 <div className="form-group mx-auto my-3">
                                 <label>Birth Date
-                                  <input onChange={handleChange}  name='birth_date' onChange={(e) => console.log(e.target.value)} type='date' />
+                                  <input onChange={handleChange} format='yyyy-mm-dd' name='birth_date' type='date' />
                               </label>
                                 </div>
                                 
@@ -87,17 +111,22 @@ const Icebreaker = () => {
                               </div>
                               <div className="form-group my-2 mx-auto">
                                   <label> currently working on ?
-                                  <input onChange={handleChange}  name='working_on' type="text" className="form-control" placeholder="Your Bio" />
+                                  <input onChange={handleChange}  name='working_on' type="text" className="form-control" placeholder="what you up to?" />
+                                  </label>
+                              </div>
+                              <div className="form-group my-2 mx-auto">
+                                  <label> Background 
+                                  <input onChange={handleChange}  name='working_on' type="text" className="form-control" placeholder="tell us about your background" />
                                   </label>
                               </div>
                               <div className="form-group my-2 mx-auto">
                                   <p> are you looking for a collab partner ?</p>
                                   <input onClick={handleChange} name='collab_status' id='yes' type="checkbox" value={'yes'} placeholder="Your Bio" />
                  
-                                  <label className='mr-1' for='yes'> &#160; Yes &#160; </label>
+                                  <label className='mr-1' htmlFor='yes'> &#160; Yes &#160; </label>
                                   <input onClick={handleChange} name='collab_status' id='no' type="checkbox" value={'no'} placeholder="Your Bio" />
                  
-                                <label className='mr-1' for='no'> &#160; No</label>
+                                <label className='mr-1' htmlFor='no'> &#160; No</label>
                                   
                               </div>
                               <small className='text-center'>You can update or edit settings later</small>

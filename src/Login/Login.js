@@ -11,7 +11,7 @@ function Login(){
     const abortController = new AbortController();
 
     // a local storage to store the user's token
-    const [token, setToken] = useState(localStorage.getItem('token'))
+
     const [inputState, setInput] = useState({input: {username: '', password: ''}})
     const [error, setError] = useState("None")
     const [loading, setLoading] = useState(false)
@@ -33,10 +33,11 @@ function Login(){
             .then(res => {
                 console.log(res)
                 if (res.status === 200){
-                    setToken(res.data.access)
-                    localStorage.setItem('access_token', JSON.stringify(res.data.access))
-                    localStorage.setItem('refresh_token', JSON.stringify(res.data.refresh))
-                    localStorage.setItem('profile_id', JSON.stringify(res.data.profile_id))
+
+                    localStorage.setItem('access_token', res.data.access)
+                    console.log(res.data.access)
+                    localStorage.setItem('refresh_token', res.data.refresh)
+                    localStorage.setItem('profile_id', res.data.profile_id)
                     reduxStore.dispatch({type: 'LOG', payload: {isLogged: true}})
                     if (res.data.is_new === true){
                         console.log('new user')
