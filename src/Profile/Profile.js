@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './Profile.css'
 import profilepic from './../assets/ProfilePicture.png'
 import PostComponent from './../Homepage/Blogs/Post/PostComponent'
-import {Container, Col ,Row, Card, ListGroup, ListGroupItem, Carousel, Navbar, Nav, Button, Accordion} from 'react-bootstrap'
+import {Container, Col ,Row, Card, ListGroup, ListGroupItem, Carousel, Navbar, Nav, Image, Button, Accordion} from 'react-bootstrap'
 import Statues from './../assets/Statues.jpeg'
 import Glitch from './../assets/Glitch.jpeg'
 import David from './../assets/David.jpeg'
@@ -13,6 +13,12 @@ import ProfileGallery from './ProfileGallery/ProfileGallery'
 import BlogContainer from './ProfileBlog/BlogContainer'
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+
+
+import bg from './../assets/59914658_862689307414500_4288728503815241728_n.jpg'
+
+
+
 function Profile(props){
   const [state, setState] = useState('Gallery');
   const profile_id = localStorage.getItem('profile_id')
@@ -95,11 +101,16 @@ function Profile(props){
 
     return(
 
-    <div className='ProfileContainer'>
+    <Container 
+    style={{backgroundImage: `url(${bg})` ,backgroundSize: 'cover', backgroundPosition: 'top', backgroundRepeat: 'no-repeat', height: '30vh'}}
+    fluid>
 
+        {/* <Image src={bg} style={{maxHeight: "40vh", width: '100%'}}/> */}
 
-        <Container fluid className='bg-light d-flex'>
-            <Card border="0"  className='bg-none' style={{width: '25rem'}}>
+        <Container fluid style={{paddingTop: '11.5vh'}}
+
+        className='profile-container bg-transparent d-flex '>
+            <Card border="1"  className=' mt-5' style={{width: '25rem'}}>
             <Card.Header  className='d-flex justify-content-center'>
                     <Card.Img className='rounded-circle border-light ' style={{ width: '7rem', height: "7rem" }} variant="bottom" src={profile.profile_pic} />
           </Card.Header>
@@ -154,13 +165,15 @@ function Profile(props){
 
             </Card>
 
-            <Container>
+            <Container  
+            style={{paddingTop: '19vh', width: '100%'}}
+            className='bg-transparent'>
         <Navbar >
-          <Container className="d-flex justify-content-around">
+          <Container  className="d-flex justify-content-around">
           <Nav>
-            <Nav.Link onClick={() => setState('Gallery')} href="#Gallery">Gallery</Nav.Link>
-            <Nav.Link onClick={() => setState('Blogs')}  href="#Blogs">Blogs</Nav.Link>
-            <Nav.Link onClick={() => setState('Shop')}  href="#Shop">Shop</Nav.Link>
+            <Nav.Link onClick={() => setState('Gallery')} >Gallery</Nav.Link>
+            <Nav.Link onClick={() => setState('Blogs')}  >Blogs</Nav.Link>
+            <Nav.Link onClick={() => setState('Saved')}  >Saved</Nav.Link>
 
           </Nav>
           </Container>
@@ -170,7 +183,7 @@ function Profile(props){
         <div className='bg-primary d-flex justify-content-center flex-column' >
         {state === "Gallery" && (<ProfileGallery />)}
         {state === "Blogs" && (<div><h1><BlogContainer userId={id}/></h1></div>)}
-        {state === "Shop" && (<div><h1>Shop</h1></div>)}
+        {state === "Saved" && (<div><h1>Saved</h1></div>)}
         </div>
         </Container>
       </Container>
@@ -178,7 +191,7 @@ function Profile(props){
         </Container>
 
        
-    </div>
+    </Container>
 
     )
 }

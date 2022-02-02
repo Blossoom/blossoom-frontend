@@ -6,10 +6,10 @@ import arrowdown from './../../assets/icons/svg/fi-rr-angle-small-down.svg'
 
 
 
-
 import { Card } from 'react-bootstrap'
 function BlogComponent({username, Profile_pic,PostId, Wallpaper, Title, Tags, preview_content, timesince}){
 
+    
     return(
 
             <Card className='my-3' style={{width: '40rem' }}>

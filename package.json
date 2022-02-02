@@ -33,6 +33,7 @@
     "react-redux": "^7.2.6",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
+    "react-select": "^5.2.2",
     "redux": "^4.1.2",
     "validator": "^13.7.0"
   },

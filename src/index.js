@@ -12,8 +12,9 @@ import Login from './Login/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reduxStore from './reduxStore/reduxStore';
 import { Provider } from 'react-redux';
+import SinglePageArtwork from './SinglePostComponent/SinglePageArtworkpPost/SinglePageArtwork';
 import ProfileSettings from "./Profile/ProfileSettings/ProfileSettings";
-import SinglePagePost from './SinglePostComponent/SinglePageBlogPost/SinglePagePost'
+import SinglePageBlog from './SinglePostComponent/SinglePageBlogPost/SinglePageBlog'
 import Icebreaker from "./SignUp/IceBreaker/Icebreaker";
 import PickTags from "./SignUp/IceBreaker/PickTags";
 import Header from './Header/Header'
@@ -35,7 +36,8 @@ ReactDOM.render(
             <Route path='/picktags' element={<PickTags/>} />
             <Route path='/Profile/Settings' element={<ProfileSettings />}/>
             <Route path='/login' element={<Login/>} />
-            <Route path='/Blog/post/:postid' element={<SinglePagePost />}/>
+            <Route path='/blog/post/:Postid' element={<SinglePageBlog />}/>
+            <Route path='/artwork/post/:Postid' element={<SinglePageArtwork />}/>
             </Routes>
             </Provider>
         </Router>,document.querySelector("#root"));

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
 import  { useState, useEffect } from 'react';
+import Select from 'react-select'
 import axios from 'axios';
 
 
@@ -11,15 +12,28 @@ function CreateArtwork(){
     // if request is successful, show success message and redirect to profile page
     // if request is unsuccessful, show error message
 
+
+    const tag = [
+        { value: 'Digital_Painting', label: 'Digital Painting' },
+        { value: 'vector_art', label: 'Vector art' },
+        { value: 'collage_art', label: 'Collage Art' },
+        { value: 'animation', label: 'Animation' },
+        { value: 'sketch', label: 'Sketch' },
+        { value: 'character_design', label: 'Character Design' },
+    ]
+
+
+
+
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
-    // const [tags, setTags] = useState([])
+    const [tags, setTags] = useState(null)
     const [artwork, setArtwork] = useState({
         title: '',
         content: '',
         mediafile: null,
-        tags: ['animation']
+
     })
 
 
@@ -29,12 +43,16 @@ function CreateArtwork(){
         setLoading(true)
         setSuccess(false)
         setError(false)
+        const tagsPost = [] 
+        tags.map(tag => tagsPost.push(tag.value)) 
+        console.log(typeof tagsPost)
+        console.log(tagsPost)
         const formData = new FormData();
         
         formData.append('title', artwork.title);
         formData.append('content', artwork.content);
         formData.append('mediafile', artwork.mediafile);
-        formData.append('tags', artwork.tags);
+        formData.append('tags', tagsPost);
         axios.post('https://blossoom-api.herokuapp.com/api/v1/artworks/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -42,15 +60,17 @@ function CreateArtwork(){
             }
         })
         .then(res => {
-            if (res.status === 200){
+            if (res.status === 201){
                 setLoading(false)
                 setSuccess(true)
                 setArtwork({
                     title: '',
                     content: '',
                     mediafile: null,
-                    tags: ['animation']
+
                 })
+
+                window.location.href = '/profile/' + localStorage.getItem('profile_id')
             }
             else{
                 setLoading(false)
@@ -63,30 +83,6 @@ function CreateArtwork(){
     }
 
 
-    //     console.log(artwork)
-    //     axios.post('https://blossoom-api.herokuapp.com/api/v1/artworks/', artwork, {
-    //         headers: {
-
-    //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
-    //         }
-    //     })
-    //     .then(res => {
-
-    //         setSuccess(true)
-    //         setLoading(false)
-    //         // setArtwork({
-    //         //     title: '',
-    //         //     content: '',
-    //         //     mediafile: null,
-    //         //     tags: []
-    //         // })
-    //     })
-    //     .catch(err => {
-    //         console.log(artwork)
-    //         setError(true)
-    //         setLoading(false)
-    //     })
-    // }
 
 
 
@@ -96,10 +92,13 @@ function CreateArtwork(){
                 ...artwork,
                 mediafile: e.target.files[0]
             })
-            console.log(artwork.mediafile)
+            
             
         
         }
+        
+            
+        
         else {
         setArtwork({
             ...artwork,
@@ -107,6 +106,13 @@ function CreateArtwork(){
         })
     }
     }
+
+
+
+
+    // on react select change, insert value to tags state
+
+
 
 
 
@@ -118,6 +124,24 @@ function CreateArtwork(){
                         <label htmlFor='title'>Title</label>
                         <input type='text' className='form-control' id='title' name='title' value={artwork.title} onChange={handleChange}/>
                     </div>
+
+                    <div className='form-group'>
+                        
+                               <Select
+                               isMulti
+                               isSearchable
+                               name='tags'
+                               placeholder='Select a tag'
+                               isClearable
+                                
+                                onChange={setTags}
+                               options={tag}
+                               className="basic-multi-select my-3"
+                               classNamePrefix="select"
+
+                               />
+                    </div>
+
                     <div className='form-group'>
                         <label htmlFor='content'>Content</label>
                         <textarea className='form-control' id='content' name='content' value={artwork.content} onChange={handleChange}/>

@@ -4,12 +4,13 @@ import { Container, Row } from 'react-bootstrap'
 import BlogComponent from './BlogComponent';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 
 
 
+function BlogContainer(){
 
-function BlogContainer(props){
-
+    const {id} = useParams()
     const currentUser_id = localStorage.getItem('profile_id')
     const access_token = localStorage.getItem('access_token')
     const [loading, setLoading] = useState(true)
@@ -20,7 +21,7 @@ function BlogContainer(props){
   const getBlogs = async () => {
         // if (props.userId === currentUser_id)
         // {
-        const res = await axios.get("https://blossoom-api.herokuapp.com/api/v1/articles/me/",{
+        const res = await axios.get(`https://blossoom-api.herokuapp.com/api/v1/articles/users/${id}`,{
                 headers: {
                     Authorization: `Bearer ${access_token}`
                 }
