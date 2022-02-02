@@ -1,33 +1,17 @@
 {
-  "name": "blossoom-frontend",
-  "version": "0.0.1",
-  "description": "This is a Beta version of blossom",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack serve --config ./config/webpack.config.js --mode production --port 3000",
-    "build": "webpack --config webpack.config.js --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Blossoom/blossoom-frontend.git"
-  },
-  "author": "Iheb khaldi/Malek salem",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Blossoom/blossoom-frontend/issues"
-  },
-  "homepage": "https://github.com/Blossoom/blossoom-frontend#readme",
+  "name": "blossom",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@editorjs/editorjs": "^2.22.2",
-    "@editorjs/embed": "^2.5.0",
-    "@editorjs/header": "^2.6.2",
-    "@editorjs/list": "^1.6.2",
-    "@reduxjs/toolkit": "^1.7.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
-    "bootstrap": "^5.1.3",
-    "editorjs-html": "^3.4.2",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.1.0",
+    "react-bootstrap": "^2.1.2",
+    "bootstrap": "^5.1.3",
+    "editorjs-html": "^3.4.2",    
     "react-calendar": "^3.6.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -36,23 +20,32 @@
     "react-select": "^5.2.2",
     "redux": "^4.1.2",
     "validator": "^13.7.0",
-    "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.7",
-    "@babel/preset-react": "^7.16.7",
-    "@editorjs/image": "^2.6.2",
-    "@editorjs/quote": "^2.4.0",
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "react-hot-loader": "^4.13.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.2"
-
+    
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.4"
   },
-  "devDependencies": {
-
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
