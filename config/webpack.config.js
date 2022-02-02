@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: '/'
   },
-  mode: 'development',
+  mode: 'production',
   plugins: [
     new HtmlWebpackPlugin({
       template: "./dist/index.html",
