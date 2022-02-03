@@ -78,7 +78,7 @@ if(localStorage.getItem('access_token') === null){
 
       <Nav
         className="ms-auto my-2 my-lg-0"
-        style={{ maxHeight: '80px'}}
+        style={{ maxHeight: '60px'}}
         navbarScroll
       >
 
@@ -87,7 +87,6 @@ if(localStorage.getItem('access_token') === null){
                           <NavDropdown title="Create" id="navbarScrollingDropdown">
                               <NavDropdown.Item ><Link to='/Create/Blog'>Blog</Link></NavDropdown.Item>
                               <NavDropdown.Item ><Link to='/Create/Artwork'>Artwork</Link></NavDropdown.Item>
-                              <NavDropdown.Item ><Link to='/Create/ShopItem'>Shop Item</Link></NavDropdown.Item>
                               <NavDropdown.Item ><Link to='/Create/Event'>Event</Link></NavDropdown.Item>
                             </NavDropdown>
                           </Button>)}

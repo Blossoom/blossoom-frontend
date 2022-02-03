@@ -67,7 +67,7 @@ function BlogEditor() {
 
               
     return (
-      <Container className='bg-white'>
+      <Container fluid className='bg-white'>
           <div id='BlogEditor'>
 
           </div>

@@ -12,7 +12,6 @@
 
 import React from 'react';
 import {Container, Row, Card, Button, Image, Col} from 'react-bootstrap';
-import reduxStore from '../../reduxStore/reduxStore';
 import { useParams } from 'react-router';
 import axios from "axios";
 import arrowup from './../../assets/icons/svg/fi-rr-angle-small-up.svg'
@@ -35,6 +34,68 @@ let {Postid} = useParams();
     
 
 
+    
+
+    let access_token = localStorage.getItem('access_token')
+
+
+    axios.interceptors.request.use(
+        config => {
+            config.headers.Authorization = `Bearer ${access_token}`
+            return config
+        },
+        error => {
+            return Promise.reject(error)
+        }
+    )
+    axios.interceptors.response.use(
+        response => {
+            return response
+        },
+        error => {
+            if (error.response.status === 401){
+                const refresh_token = localStorage.getItem('refresh_token')
+                const refresh_token_payload = {
+                    refresh: refresh_token
+                }
+                axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/login/refresh/', refresh_token_payload)
+                .then(res => {
+                    localStorage.setItem('access_token', res.data.access)
+
+                    axios.interceptors.request.use(
+                        config => {
+                            const token = localStorage.getItem('access_token')
+                            config.headers.Authorization = `Bearer ${token}`
+                            return config
+                        },
+                        error => {
+                            return Promise.reject(error)
+                        }
+                    )
+                    axios.interceptors.response.use(
+                        response => {
+                            return response
+                        },
+                        error => {
+                            return Promise.reject(error)
+                        }
+                    )
+                })
+            }
+        }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -44,12 +105,14 @@ let {Postid} = useParams();
             setArtworkData(res.data)
             setVotes(res.data.votes.total_votes)
             setUserInfo(res.data.user)
-            console.log(res.data)
+
         })
 
         axios.get(`https://blossoom-api.herokuapp.com/api/v1/artworks/${Postid}/comments`)
         .then(res => {
             setComments(res.data)
+            console.log('coucoulavie')
+            console.log(Comments)
         }
         )
 
@@ -66,37 +129,48 @@ let {Postid} = useParams();
     }
     
     const handleCommentSubmit = (e) => {
-        e.preventDefault()
-        axios.post(`/api/artwork/${Postid}/comment`, CommentFormData)
+
+        // FormData username
+
+        axios.post(`https://blossoom-api.herokuapp.com/api/v1/artworks/${Postid}/comments/`, {content: CommentFormData.Comment},
+        {headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }}
+        )
         .then(res => {
             setComments(res.data.Comments)
             setCommentFormData({})
+            window.location.reload()
+
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 
-    const handleCommentDelete = (e) => {
-        axios.delete(`/api/artwork/${Postid}/comment/${e.target.id}`)
-        .then(res => {
-            setComments(res.data.Comments)
-        })
-    }
+    // const handleCommentDelete = (e) => {
+    //     axios.delete(`/api/artwork/${Postid}/comments/${e.target.id}`)
+    //     .then(res => {
+    //         setComments(res.data.Comments)
+    //     })
+    // }
 
-    const handleCommentEdit = (e) => {
-        axios.get(`/api/artwork/${Postid}/comment/${e.target.id}`)
-        .then(res => {
-            setCommentFormData(res.data)
-            setCommentForm(!CommentForm)
-        })
-    }
+    // const handleCommentEdit = (e) => {
+    //     axios.get(`/api/artwork/${Postid}/comments/${e.target.id}`)
+    //     .then(res => {
+    //         setCommentFormData(res.data)
+    //         setCommentForm(!CommentForm)
+    //     })
+    // }
 
-    const handleCommentEditSubmit = (e) => {
-        e.preventDefault()
-        axios.put(`/api/artwork/${Postid}/comment/${CommentFormData.CommentId}`, CommentFormData)
-        .then(res => {
-            setComments(res.data.Comments)
-            setCommentFormData({})
-        })
-    }
+    // const handleCommentEditSubmit = (e) => {
+    //     e.preventDefault()
+    //     axios.put(`/api/artwork/${Postid}/comments/${CommentFormData.CommentId}`, CommentFormData)
+    //     .then(res => {
+    //         setComments(res.data.Comments)
+    //         setCommentFormData({})
+    //     })
+    // }
 
     const handleUpvote = (e) => {
 
@@ -132,9 +206,15 @@ let {Postid} = useParams();
     }
 
     const handleSave = (e) => {
-        axios.post(`/api/artwork/${Postid}/save`)
-        .then(res => {
-            setArtworkData(res.data)
+        axios.get(`https://blossoom-api.herokuapp.com/api/v1/artworks/${Postid}/save/`,
+        {
+            headers:
+            {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        .then(() => {
+            setSaved(true)
         })
     }
 
@@ -213,13 +293,13 @@ let {Postid} = useParams();
           <Row>
               <Col className=''>   
                 <Button className='mx-1' onClick={handleUpvote} ><img src={arrowup} width={'20px'}/> Upvote </Button>
-                <Button className='mx-1'><Image style={{cursor:"pointer"}} onClick={handleDownvote} src={arrowdown} width={'20px'}/>downVote</Button>
+                <Button onClick={handleDownvote} className='mx-1'><Image src={arrowdown} width={'20px'}/>downVote</Button>
             
                 <Button className='mx-1' className="btn btn-primary" onClick={handleCommentForm}>Add Comment</Button>
-                <Button className='mx-1'>Save</Button>
+                <Button onClick={handleSave} className='mx-1'>Save</Button>
                 </Col>
             </Row>
-            {CommentForm ? <form onSubmit={handleCommentSubmit}>
+            {CommentForm ? <form onClick={handleCommentSubmit}>
                 <div className="form-group">
                    
                     <label>Comment</label>
@@ -227,13 +307,14 @@ let {Postid} = useParams();
                 </div>
                 <button className="btn btn-primary">Submit</button>
             </form> : null}
-            {Comments.length ? (Comments.map(comment => <div className="card">
+            <span><small>votes <small className='text-muted'>{votes === -1 ? ('0'):(votes)}</small></small></span>
+            {Comments ? (Comments.map(comment => <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">{comment.Comment}</h5>
-                    <p className="card-text">{comment.User.Username}</p>
+                    <h5 className="card-title">{comment.user.username}</h5>
+                    <p className="card-text">{comment.content}</p>
 
-                    <button className="btn btn-primary" onClick={handleCommentEdit} id={comment.CommentId}>Edit</button>
-                    <button className="btn btn-primary" onClick={handleCommentDelete} id={comment.CommentId}>Delete</button>
+                    <button className="btn btn-primary mx-1" id={comment.CommentId}>Edit</button>
+                    <button className="btn btn-primary"  id={comment.CommentId}>Delete</button>
                 </div>
             </div>) ):(<div>No Comments</div>)}
             </Card.Footer>

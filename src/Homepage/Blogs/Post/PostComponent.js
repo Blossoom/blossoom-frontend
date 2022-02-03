@@ -8,9 +8,7 @@ function PostComponent({Author, PostId, Wallpaper, Title, Tags, Paragraph}){
 
     return(
 
-            <Card style={{width: '40rem' }}>
-        
-
+            <Card className='my-3' style={{minWidth: '40rem' }}>
             <Card.Header className='d-flex'>
                 <div className='arrows'>
                     <img src={arrowup} width={'25px'}/>

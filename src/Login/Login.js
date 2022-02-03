@@ -13,7 +13,7 @@ function Login(){
     // a local storage to store the user's token
 
     const [inputState, setInput] = useState({input: {username: '', password: ''}})
-    const [error, setError] = useState("None")
+    const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const navigate = useNavigate()
@@ -31,7 +31,6 @@ function Login(){
     function handleSubmit() {
             axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/login/', inputState.input)
             .then(res => {
-                console.log(res)
                 if (res.status === 200){
 
                     localStorage.setItem('access_token', res.data.access)
@@ -53,7 +52,7 @@ function Login(){
                 }
             })
             .catch(err => {
-                console.log(err)
+                setError('Wrong username or password')
             })
             return function cleanup() {abortController.abort();}
     }
@@ -69,8 +68,7 @@ return (
     <Row>
                 <div className="col-md-12 login-form-1">
                             <h3>Login</h3>
-                            {error === 'validateEmail'&& (<h4 className='text-center text-danger'>Validate Email</h4>)}
-                            {error === 'wrongcredit'&& (<h4 className='text-center text-danger'>Check your login information</h4>)}
+                            {error && (<h4 className='text-center text-danger'>{error}</h4>)}
                             <form>
                                 <div className="form-group">
                                     <input type="email" className="form-control" placeholder="Your Username *" value={inputState.input.username} onChange={setUserName} />

@@ -9,8 +9,12 @@
 }
 
 
-.menu-item h3:hover > .svgicon{
-    filter: invert(85%) sepia(15%) saturate(557%) hue-rotate(155deg) brightness(87%) contrast(91%);
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    color: #191919;
+
 }
 
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
+    color: #191919;
 
+}

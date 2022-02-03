@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col, Card} from 'react-bootstrap'
 import './ProfileGallery.css'
 import ProfileArtworkComponent from './ProfileArtworkComponent'
 import axios from 'axios';
@@ -42,7 +42,42 @@ function ProfileGallery(){
     return (
         <Container>
             <Row className='justify-content-center'>
-                {(artworks.length === 0 && loading === false) ? (<h1>No artworks yet!</h1>):artworks.map((artwork, index) => {
+                {(artworks.length === 0 && loading === false) ? (
+                <>
+                <Col xs={'3'} >
+                    <Card><Card.Body>
+                        <Card.Title>No artworks</Card.Title>
+                        <Card.Text>
+                            You have no artworks yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'}>
+                    <Card><Card.Body>
+                        <Card.Title>No artworks</Card.Title>
+                        <Card.Text>
+                            You have no artworks yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'}>
+                    <Card><Card.Body>
+                        <Card.Title>No artworks</Card.Title>
+                        <Card.Text>
+                            You have no artworks yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'}>
+                    <Card><Card.Body>
+                        <Card.Title>No artworks</Card.Title>
+                        <Card.Text>
+                            You have no artworks yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                </>
+                ):artworks.map((artwork, index) => {
                     return (
 
                             <ProfileArtworkComponent key={index} id={artwork.id} title={artwork.title} image={artwork.mediafile}/>

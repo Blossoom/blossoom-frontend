@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import  { useState, useEffect } from 'react';
 import Select from 'react-select'
 import axios from 'axios';
@@ -117,12 +117,15 @@ function CreateArtwork(){
 
 
     return (
-        <Container>
-            <Row className='justify-content-center'>
-                <form onSubmit={handleSubmit}>
-                    <div className='form-group'>
-                        <label htmlFor='title'>Title</label>
-                        <input type='text' className='form-control' id='title' name='title' value={artwork.title} onChange={handleChange}/>
+        <Container fluid className='bg-white'>
+           
+           <Container className='bg-white my-4 justify-content-center'>
+
+                <form onSubmit={handleSubmit} className='mx-auto' style={{maxWidth:'45rem'}}>
+                    <div className='form-group '>
+                        <label htmlFor='title'>Title
+                        <input style={{maxWidth:'25rem'}} type='text' className='form-control mx-auto' id='title' name='title' value={artwork.title} onChange={handleChange}/>
+                        </label>
                     </div>
 
                     <div className='form-group'>
@@ -147,23 +150,21 @@ function CreateArtwork(){
                         <textarea className='form-control' id='content' name='content' value={artwork.content} onChange={handleChange}/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='mediafile'>Mediafile</label>
-
+                        <label className='mt-3' htmlFor='mediafile'>Artwork file</label>
                         <input name='mediafile'  type="file" onChange={handleChange} className="form-control my-2"  />
-                        
-
                     </div>
                     {/* <div className='form-group'>
                         
                         <label htmlFor='tags'>Tags</label>
                         <input type='text' className='form-control' id='tags' name='tags' value={artwork.tags} onChange={handleChange}/>
                     </div> */}
-                    <Button variant='primary' type='submit'>Submit</Button>
+                    <Button variant='primary' className='my-3' type='submit'>Submit</Button>
                 </form>
-            </Row>
+
             {loading && <h1>Loading...</h1>}
             {success && <h1>Success!</h1>}
             {error && <h1>Error!</h1>}
+            </Container>
         </Container>
     )
 }

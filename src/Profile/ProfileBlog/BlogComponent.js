@@ -30,7 +30,7 @@ function BlogComponent({username, Profile_pic,PostId, Wallpaper, Title, Tags, pr
                     <Card.Title>{Title}</Card.Title>
                     <Card.Text>{preview_content} <br/> <a href='/'>read more..</a></Card.Text>
                     <Card.Text> {Tags.map(tag =>  <small className="text-muted">{"#" + tag}</small>)} {timesince}</Card.Text>
-                    </Card.Body>
+                </Card.Body>
 
             <div style={{'font-size': '16px' }} className='BlogComponent-footer'> 
                 <button>Comments</button>

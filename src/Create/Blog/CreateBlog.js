@@ -159,15 +159,15 @@ function TagSelector() {
       }
 
       return (
-      <Container fluid bg='dark'>
+      <Container fluid className='bg-white'>
 
 
             {state === "Submit" ? 
-            (            <Container>
+            (            <Container className='bg-white'>
               <Row>
                     <input
                         className='col-4 mx-auto my-4 px-6 my-2 border-light'
-  
+                        
                         type="text"
                         id='TitleInput'
                         placeholder='insert blog Title'

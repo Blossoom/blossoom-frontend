@@ -11,7 +11,7 @@ function SignUp(){
 
     let Navigate = useNavigate();
     const [inputState, setInput] = useState({input: {email: '', username: '', password: '', password_2: ''}})
-    const [error, setError] = useState("None")
+    const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     
@@ -52,7 +52,7 @@ function SignUp(){
         else{
             axios.post('https://blossoom-api.herokuapp.com/api/v1/auth/register/', inputState.input)
             .then(res => {
-                console.log(res)
+
                 if (res.statusText === "Created"){
                     Navigate('/login')
                 }
@@ -61,7 +61,11 @@ function SignUp(){
                 }
             })
             .catch(err => {
-                console.log(err)
+                
+                    setError('Uese already exists')
+                    console.log(JSON.stringify(err.response.data))
+                
+
             })
             return
         }
@@ -74,9 +78,8 @@ return (
                 <div className="col-md-12 login-form-1">
                             <h3>Sign Up</h3>
      
-                            {error === 'Email is not valid'&& (<h4 className='text-center text-danger'>{error}</h4>)}
-                            {error === 'Password must be at least 8 characters'&& (<h4 className='text-center text-danger'>{error}</h4>)}
-                            {error === 'Username must be at least 3 characters'&& (<h4 className='text-center text-danger'>{error}</h4>)}
+                            {error && (<h4 className='text-center text-danger'>{error}</h4>)}
+
                             <form>
                                 <div className="form-group my-2">
                                     <input type="text" className="form-control" placeholder="Your Username *"  onChange={setUserName} value={inputState.input.username} />

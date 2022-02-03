@@ -3,6 +3,7 @@ import BlogReducer from './BlogReducer';
 import ArtworkReducer from './ArtworkReducer';
 import ShopItemReducer from './ShopItem';
 import AuthReducer from './AuthStatus'
+import IntrestsReducer from './intrestsReducer';
 
 
 export default configureStore({
@@ -10,7 +11,8 @@ export default configureStore({
         CreateBlog: BlogReducer,
         CreateArtwork: ArtworkReducer,
         CreateShopITem: ShopItemReducer,
-        Auth: AuthReducer
+        Auth: AuthReducer,
+        Tags: IntrestsReducer,
 
     }
 });

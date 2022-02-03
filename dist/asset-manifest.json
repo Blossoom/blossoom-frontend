@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.80259f8c.css",
+    "main.js": "/static/js/main.5da2ee25.js",
+    "static/media/collage.jpg": "/static/media/collage.b8112443444f4bcf7922.jpg",
+    "static/media/59914658_862689307414500__n.jpg": "/static/media/59914658_862689307414500_4288728503815241728_n.a8385ecdf7b260db0e0c.jpg",
+    "static/media/ProfilePicture.png": "/static/media/ProfilePicture.5490a87581b8190af126.png",
+    "static/media/Glitch.jpeg": "/static/media/Glitch.8e4b1ed6baf4c14bf476.jpeg",
+    "static/media/David.jpeg": "/static/media/David.bc8240fd3a5a77bd345e.jpeg",
+    "static/media/Glitchiedavid.jpeg": "/static/media/Glitchiedavid.cdde4f72d4cfa92fbeda.jpeg",
+    "static/media/thumbnail.jpeg": "/static/media/thumbnail.af7b0eb05c7bb356a59c.jpeg",
+    "static/media/Statues.jpeg": "/static/media/Statues.fa7a66b7e4438e38c159.jpeg",
+    "static/media/fi-rr-gallery.svg": "/static/media/fi-rr-gallery.efe48439bc29b0ce31551e5437dccae1.svg",
+    "static/media/fi-rr-document.svg": "/static/media/fi-rr-document.df80f6f7b5fd52da759029e5cc50949c.svg",
+    "index.html": "/index.html",
+    "static/media/fi-rr-calendar.svg": "/static/media/fi-rr-calendar.f05bf9e8ff26332d270202fcec5e77fa.svg",
+    "static/media/fi-rr-hastag.svg": "/static/media/fi-rr-hastag.5e873a1a931d33e632450142ca9d599d.svg",
+    "static/media/fi-rr-shopping-bag.svg": "/static/media/fi-rr-shopping-bag.e197047e002c935bbf0c09a107c4733a.svg",
+    "static/media/fi-rr-angle-small-up.svg": "/static/media/fi-rr-angle-small-up.5909dca0ac2c62f272b4e943702908a9.svg",
+    "static/media/fi-rr-angle-small-down.svg": "/static/media/fi-rr-angle-small-down.396bf9363bf0b92473697679ab7bfcf1.svg",
+    "main.80259f8c.css.map": "/static/css/main.80259f8c.css.map",
+    "main.5da2ee25.js.map": "/static/js/main.5da2ee25.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.80259f8c.css",
+    "static/js/main.5da2ee25.js"
+  ]
+}

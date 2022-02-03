@@ -1,6 +1,6 @@
 import React from 'react';
 import "./BlogContainer.css"
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import BlogComponent from './BlogComponent';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -55,10 +55,47 @@ function BlogContainer(){
 
 
     return (
-        <Container>
-            <Row className='justify-content-center'>
+        <Container fluid className='bg-white my-3'>
+            <Row className='justify-content-center bg-white'>
 
-            {(blogs.length === 0 && loading === false) ? (<h1>No blogs yet!</h1>):blogs.map((blog, index) => {
+            {(blogs.length === 0 && loading === false) ? (
+                
+                <>
+                <Col xs={'3'} >
+                    <Card><Card.Body>
+                        <Card.Title>No blogs</Card.Title>
+                        <Card.Text>
+                            You have no blogs yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'}>
+                    <Card><Card.Body>
+                        <Card.Title>No blogs</Card.Title>
+                        <Card.Text>
+                            You have no blogs yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'} >
+                    <Card><Card.Body>
+                        <Card.Title>No blogs</Card.Title>
+                        <Card.Text>
+                            You have no blogs yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                </Col>
+                <Col xs={'3'}>
+                    <Card><Card.Body>
+                        <Card.Title>No blogs</Card.Title>
+                        <Card.Text>
+                            You have no blogs yet.
+                        </Card.Text>
+                    </Card.Body></Card>
+                          </Col>
+                </>
+            
+):blogs.map((blog, index) => {
                                     console.log(blog)
                             return (<BlogComponent key={index} Profile_pic={blog.user.profile_pic} username={blog.user.username} preview_content={blog.preview_content} Title={blog.title} Tags={blog.tags} PostId={blog.id} />)
                         

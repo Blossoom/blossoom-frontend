@@ -16,7 +16,7 @@ import SinglePageArtwork from './SinglePostComponent/SinglePageArtworkpPost/Sing
 import ProfileSettings from "./Profile/ProfileSettings/ProfileSettings";
 import SinglePageBlog from './SinglePostComponent/SinglePageBlogPost/SinglePageBlog'
 import Icebreaker from "./SignUp/IceBreaker/Icebreaker";
-import PickTags from "./SignUp/IceBreaker/PickTags";
+import TagsBody from "./Homepage/Tags/TagsBody/TagsBody";
 import Header from './Header/Header'
 import axios from "axios";
 
@@ -27,13 +27,14 @@ ReactDOM.render(
             <Routes>
             <Route path='/' element={<Homepage/>} />
             <Route exact  path='/Profile/:id' element={<Profile/>} />
+            
             <Route path='/Create/Blog' element={<CreateBlog/>} />
             <Route path='/Create/Artwork' element={<CreateArtwork/>} />
             <Route path='/Create/ShopItem' element={<CreateShopItem/>} />
             <Route path='/Create/Event' element={<CreateEvent/>} />
             <Route path='/signup' element={<SignUp/>} />
             <Route path='/icebreaker' element={<Icebreaker/>} />
-            <Route path='/picktags' element={<PickTags/>} />
+            <Route path='/picktags' element={<TagsBody/>} />
             <Route path='/Profile/Settings' element={<ProfileSettings />}/>
             <Route path='/login' element={<Login/>} />
             <Route path='/blog/post/:Postid' element={<SinglePageBlog />}/>

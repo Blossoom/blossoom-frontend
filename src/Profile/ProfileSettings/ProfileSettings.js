@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Card,Row} from 'react-bootstrap';
+import {Container, Card,Row, Accordion} from 'react-bootstrap';
 import './ProfileSettings.css'
 
 
@@ -59,6 +59,57 @@ function ProfileSettings(){
 
                                 </form>
                     </div>
+
+                    <Accordion className='mx-auto' style={{ width: '19rem' }}>
+ 
+                     <Accordion.Item  eventKey="0">
+                     <Accordion.Header>Behance username</Accordion.Header>
+                     <Accordion.Body>
+                         <div className="form-group mx-auto">
+                             <label > <span className='text-info'> Behance username</span>
+
+                             <input   name='behance_username' type="text" className="form-control my-2" placeholder="insert behance username *" />                                    </label>
+                         </div>
+                     </Accordion.Body>
+
+
+                     </Accordion.Item>
+                     <Accordion.Item  eventKey="1">
+                     <Accordion.Header>Instagram username</Accordion.Header>
+                     <Accordion.Body>
+                         <div className="form-group mx-auto">
+                             <label > <span className='text-info'> Instagram username</span>
+
+                             <input name='instagram_username'  type="text" className="form-control my-2" placeholder="insert instagram username *"></input> </label>
+                         </div>
+                     </Accordion.Body>
+
+
+                     </Accordion.Item>
+                     <Accordion.Item  eventKey="2">
+                     <Accordion.Header>Twitter username</Accordion.Header>
+                     <Accordion.Body>
+                         <div className="form-group mx-auto">
+                             <label > <span className='text-info'> Twitter username</span>
+
+                             <input   name='twitter_username' type="text" className="form-control my-2" placeholder="insert twitter username *" /> </label>
+                         </div>
+                     </Accordion.Body>
+
+
+                     </Accordion.Item>
+                     <Accordion.Item  eventKey="3">
+                     <Accordion.Header>Website</Accordion.Header>
+                     <Accordion.Body>
+                         <div className="form-group mx-auto">
+                             <label > <span className='text-info'> Website</span>
+
+                             <input   name='website_url' type="text" className="form-control my-2" placeholder="insert website url *" /> </label>
+                         </div>
+                     </Accordion.Body>
+                     </Accordion.Item>
+
+                    </Accordion>
                     
             </Row>
             
