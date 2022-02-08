@@ -6,3 +6,7 @@
 .dropdown-width {
     min-width: 0px !important;
 }
+
+.notif {
+    font-size: smaller;
+}

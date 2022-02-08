@@ -9,7 +9,8 @@ import { useState } from 'react';
 
 function Header(){
   const [profile_pic, setProfile_pic] = useState('')
-
+  const [notifications, setNotifications] = useState([])
+  const [err, setErr] = useState('')
   const profile_id = localStorage.getItem('profile_id')
 
 if(localStorage.getItem('access_token') !== null){
@@ -32,10 +33,18 @@ if(localStorage.getItem('access_token') === null){
 
   useEffect(() => {
     if(isLogged === true){
-      console.log('logged in')
+  
+      axios.get(`https://blossoom-api.herokuapp.com/api/v1/notifications/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        }}).then(res => {
+          setNotifications(res.data)
+          console.log(notifications)
+        }).catch(err => {
+          setErr('Something went wrong, please try again later')})
     }
     else{
-      console.log('not logged in')
+      
     }
   }, [isLogged])
 
@@ -99,9 +108,33 @@ if(localStorage.getItem('access_token') === null){
 
 
                           <Nav.Link >{isLogged ? (<Button variant="light">
-                          <NavDropdown title="Notifications" id="navbarScrollingDropdown">
-                              <NavDropdown.Item >Hamadi invited you for a collab</NavDropdown.Item>
-                              <NavDropdown.Item >Hamadi Started follwing you</NavDropdown.Item>
+                          <NavDropdown  style={{marginRight: '4rem'}}  title="Notifications" id="navbarScrollingDropdown">
+                              {notifications.length ? notifications.map(notification => (
+                                <NavDropdown.Item  onClick={
+                                  () => {
+                                    axios.get('https://blossoom-api.herokuapp.com/api/v1/notifications/' + notification.id + '/',
+                                    
+                                    {
+                                      headers: {
+                                        
+                                        Authorization: `Token ${localStorage.getItem('token')}`
+                                      }
+                                    })                                  
+                                  }
+                                } key={notification.id}><Link className="text-decoration-none" to={
+                                  notification.detail.target.type === 'article' ? '/blog/post/' + notification.detail.target.id :
+                                  notification.detail.target.type === 'artwork' ? '/artwork/post/' + notification.detail.target.id :
+                                  notification.detail.target.type === 'event' ? '/event/post/' + notification.detail.target.id :
+                                  notification.detail.target.type === 'shop' ? '/shop/post/' + notification.detail.target.id :
+                                  notification.detail.target.type === 'profile' ? '/profile/' + notification.sender.id :
+                                  '/'
+                                }> <small  className="text-decoration-none notif text-primary">@{notification.detail.message}</small> <br/>
+                                    <small className="text-decoration-none notif-date text-muted">{notification.timesince}</small>
+                                </Link></NavDropdown.Item>
+                              )) : (<NavDropdown.Item>No notifications</NavDropdown.Item>)}
+                              <NavDropdown.Item >
+
+                              </NavDropdown.Item>
                             </NavDropdown>
                           </Button>):( <Link to='/login'><Button variant="light">Login</Button></Link>)}
                           </Nav.Link>

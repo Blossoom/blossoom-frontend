@@ -1,23 +1,56 @@
 import React from 'react';
 import {Container} from 'react-bootstrap';
-import reduxStore from '../../reduxStore/reduxStore';
-
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 const edjsHTML = require("editorjs-html");
 const edjsParser = edjsHTML();
 
 
 function SinglePagePost(){
+const postid = useParams()
+const [post, setPost] = useState(null)
+const [err, setErr] = useState(null)
+const access_token = localStorage.getItem('access_token')
 
-    let BlogData = reduxStore.getState().CreateBlog
-    const html = edjsParser.parse(BlogData.Blocks)
-    console.log(html)
-    return (
+useEffect(() => {
+    axios.get(`https://blossoom-api.herokuapp.com/api/v1/articles/${postid.Postid}/`, {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    })
+        .then(res => {
+            console.log(res.data)
+            setPost(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+            setErr(err)
+        })
+}, [])
+
+
+if(post){
+    return(
+        <Container fluid className='bg-transparent my-3'>
+            <Container className='bg-white p-3'>
+                <h1>{post.title}</h1>
+                <p>{post.preview_content}</p>
+                <div dangerouslySetInnerHTML={{__html: edjsParser.parse(JSON.parse(post.content))}}></div>
+             </Container>
+    </Container>
+    )
+}
+else{
+    return(
         <Container>
-                <h1>{reduxStore.getState().CreateBlog.Title}</h1>
-                <span>{reduxStore.getState().CreateBlog.Tags.map( tag => <small>{tag} </small>)}</span>
-                {html}
+            <h1>Loading...</h1>
         </Container>
     )
 }
+}
+
+
+    
 
 export default SinglePagePost

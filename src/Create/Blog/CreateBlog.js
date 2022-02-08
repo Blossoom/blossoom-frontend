@@ -11,13 +11,24 @@ import './CreateBlog.css'
 import axios from 'axios';
 import reduxStore from '../../reduxStore/reduxStore';
 import { useDispatch } from 'react-redux';
-
-
+import Select from 'react-select'
 
 
 function CreateBlog() {
     const [state, setState] = useState('Submit');
-    const [textState, setText] = useState('')
+    const tag = [
+      { value: 'Digital_Painting', label: 'Digital Painting' },
+      { value: 'vector_art', label: 'Vector art' },
+      { value: 'collage_art', label: 'Collage Art' },
+      { value: 'animation', label: 'Animation' },
+      { value: 'sketch', label: 'Sketch' },
+      { value: 'character_design', label: 'Character Design' },
+  ]
+    const [tags, setTags] = useState(null)
+
+  
+
+
     const dispatch = useDispatch();
 
     const editor = new EditorJS(
@@ -69,62 +80,6 @@ function CreateBlog() {
         });
       }
     
-const people = [
-  'Digital_Painting',
-  'vector_art',
-  'collage_art',
-  'sketch',
-  'character_design',
-];
-function TagSelector() {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
-  
-
-
-  const handleChange = e => {
-    setSearchTerm(e.target.value);
-  };
-  React.useEffect(() => {
-    const results = people.filter(person =>
-      person.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
-
-
-
-
-
-
-  
-  const tagHandler = e => {
-    
-    dispatch( {type: "INSERT_TAGS", payload: { Tags: e.target.innerText } } )
-    e.target.remove();
-  }
-
-
-
-
-  return (
-    <div className="TagSelector">
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleChange}
-      />
-      <ul>
-        {searchResults.map(item => (
-          <li onClick={ tagHandler}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-        
   const handleTitle = event => {
         dispatch( {type: "INSERT_TITLE", payload: {Title: event.target.value} } )
       }
@@ -135,7 +90,7 @@ function TagSelector() {
         axios.post('https://blossoom-api.herokuapp.com/api/v1/articles/', {
           title: reduxStore.getState().CreateBlog.Title,
           content: JSON.stringify(reduxStore.getState().CreateBlog.Blocks),
-          tags: reduxStore.getState().CreateBlog.Tags,
+          tags: tags.map(tag => tag.value),
           preview_content: reduxStore.getState().CreateBlog.Description,
         }, {
           headers: {
@@ -186,8 +141,18 @@ function TagSelector() {
             onClick={blogSave}>Submit</Button>
             </Container>):(
               <Container>
-                <TagSelector />
-                <Row>
+                <Select
+                    isMulti
+                    isSearchable
+                    name='tags'
+                    placeholder='Select a tag'
+                    isClearable
+                      
+                      onChange={setTags}
+                    options={tag}
+                    className="basic-multi-select my-3"
+                    classNamePrefix="select"/>
+                          <Row>
                       <form>
                            <label className='col-12' htmlFor="img">Select image:</label>
                            <input className='col-12' type="file" id="img" name="img" accept="image/*" />
