@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Blossom
+## this is a Beta version
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Blossom is a constructive and inclusive social network that links artists to each other.
 
-## Available Scripts
+- Share artworks
+- Ask questions
+- Write blogs
+- Organize events
+- serves the purpose of a portfolio
+- ✨  Do your Magic ✨
 
-In the project directory, you can run:
+## Screenshots
 
-### `npm start`
+![Profile]('./Readme_Media/Profile.png')
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Select topics to follow as tags
+- Get the most recent news you're following in your homepage
+- Create, Delete and Save Blogs, Artworks and Events 
+- Follow other artists
+- Comment on other artists Artworks, Blogs
+- Search and find other artists by either fullname or username 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> The overriding design goal for Markdown's
+> formatting syntax is to make it as readable
+> as possible. The idea is that a
+> Markdown-formatted document should be
+> publishable as-is, as plain text, without
+> looking like it's been marked up with tags
+> or formatting instructions.
 
-### `npm run build`
+This text you see here is *actually- written in Markdown! To get a feel
+for Markdown's syntax, type some text into the left window and
+watch the results in the right.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Blossom uses a number of open source technolgies to work properly:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [ReactJS] - HTML enhanced for web apps!
+- [Webpack] - awesome web-based text editor
+- [React Router] - Markdown parser done right. Fast and easy to extend.
+- [React Bootstrap] - great UI boilerplate for modern web apps
+- [Redux] - evented I/O for the backend
+- [Figma] - Was used to create a proper Sitemap, wireframe, Basic UI
 
-### `npm run eject`
+And of course Blossom itself is open source with a [public repository][dill]
+ on GitHub.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Blossom requires [Npm](https://www.npmjs.com) v8.5.5+ to run.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Install the dependencies and devDependencies and start the server.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```sh
+cd blossoom-frontend
+npm install
+npm run start
+```
 
-## Learn More
+To Build ...
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Development
 
-### Code Splitting
+Contribution will be soon available in more details 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+#### Building for source
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+For production release:
 
-### Making a Progressive Web App
+```sh
+gulp build --prod
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Generating pre-built zip archives for distribution:
 
-### Advanced Configuration
+```sh
+gulp build dist --prod
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
 
-### Deployment
+MIT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Free Software, Hell Yeah!**
