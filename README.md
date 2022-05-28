@@ -76,3 +76,13 @@ Contribution will be soon available in more details
 MIT
 
 **Free Software, Hell Yeah!**
+
+## Contact
+
+iheb.khaldi@holbertonschool.com
+malek.salem@holbertonschool.com
+
+## Author :black_nib:
+
+* **Iheb khaldi** <[IhebKhaldi](https://github.com/khaldi505)>
+* **Malek Salem** <[malekSalem](https://github.com/maleksal)>
