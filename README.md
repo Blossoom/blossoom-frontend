@@ -14,8 +14,9 @@ Blossom is a constructive and inclusive social network that links artists to eac
 ## Screenshots
 
 ![Profile](./Readme_Media/Profile.PNG)
-
-
+![Homepage](./Readme_Media/Homepage.PNG)
+![Artwork-component](./Readme_Media/Show-myArtwork.PNG)
+![Notification](./Readme_Media/Notification.PNG)
 ## Features
 
 - Select topics to follow as tags
@@ -68,6 +69,12 @@ To Build ...
 ```sh
 npm run build
 ```
+## Improvements
+
+- Adding user authentication using social media
+- Making a Better and clean user interface
+- Adding some security and validation layers to the app
+
 
 ## Development
 
