@@ -42,11 +42,11 @@ watch the results in the right.
 
 Blossom uses a number of open source technolgies to work properly:
 
-- [ReactJS] - HTML enhanced for web apps!
-- [Webpack] - awesome web-based text editor
-- [React Router] - Markdown parser done right. Fast and easy to extend.
+- [ReactJS] - It simplifies the entire method of writing components in high-volume applications.
+- [Webpack] - configure control over how to treat different assets it encounters.
+- [React Router] 
 - [React Bootstrap] - great UI boilerplate for modern web apps
-- [Redux] - evented I/O for the backend
+- [Redux] - store and share data with multiple components
 - [Figma] - Was used to create a proper Sitemap, wireframe, Basic UI
 
 And of course Blossom itself is open source with a [public repository][dill]
