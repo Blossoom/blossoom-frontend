@@ -13,7 +13,7 @@ Blossom is a constructive and inclusive social network that links artists to eac
 
 ## Screenshots
 
-![Profile]('./Readme_Media/Profile.PNG')
+![Profile](./Readme_Media/Profile.PNG)
 
 
 ## Features
